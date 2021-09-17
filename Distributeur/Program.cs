@@ -9,23 +9,22 @@ namespace Distributeur
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Distributeur Online");
+
             // Convert special symbols to show on console ex : €
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             Distributeurs dist = new Distributeurs();
             dist.Init();
             //dist.Status();
-            int chooseDrink = 0;
-            List<int> listDrinkID = dist.distributeur.ListDrinks.Select(s => s.Id).ToList();
-            do
+            int selectedDrink = 0;
+            while (selectedDrink != -999)
             {
-                dist.ShowDrinks();
-                Console.Write("Veullez chsoisir votre article : ");
-                int.TryParse(Console.ReadLine(), out chooseDrink);
-            } while (!listDrinkID.Contains(chooseDrink));
+                selectedDrink = dist.SelectDrink();
+                Console.WriteLine($"Boisson choisi: {selectedDrink}");
 
-            Console.WriteLine($"Boisson choisi: {chooseDrink}");
-            
+            }
+            Console.WriteLine("Distributeur Ofline");
         }
     }
 }

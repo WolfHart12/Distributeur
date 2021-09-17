@@ -1,6 +1,7 @@
 ﻿using Distributeur.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Distributeur.Processing
@@ -105,10 +106,26 @@ namespace Distributeur.Processing
             {
                 result += $"| [{drink.Id}] - {drink.Name} : {drink.Value} €\n";
             }
+            result += $"| [-999] - Pour le debrancher €\n";
             result += "=============================\n";
 
             Console.WriteLine(result);
             return result;
+        }
+
+
+        public int SelectDrink()
+        {
+            int chooseDrink = 0;
+            List<int> listDrink = this.distributeur.ListDrinks.Select(s => s.Id).ToList();
+            listDrink.Add(-999);
+            do
+            {
+                this.ShowDrinks();
+                Console.Write("Veullez chsoisir votre article : ");
+                int.TryParse(Console.ReadLine(), out chooseDrink);
+            } while (!listDrink.Contains(chooseDrink));
+            return chooseDrink;
         }
     }
 }
